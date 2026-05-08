@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metanoia Kleos - Interactive Journey Map (2022-2026)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Metanoia Kleos Journey Map</h1>
+            <p>Our travels and milestones from 2022 to 2026</p>
+            <div class="timeline-header">
+                <span class="year">2022</span>
+                <span class="year">2023</span>
+                <span class="year">2024</span>
+                <span class="year">2025</span>
+                <span class="year">2026</span>
+            </div>
+        </header>
+
+        <main>
+            <div id="map"></div>
+            
+            <div id="info-panel" class="info-panel hidden">
+                <button class="close-btn">&times;</button>
+                <div class="info-content">
+                    <h2 id="place-name"></h2>
+                    <p id="place-date" class="date-badge"></p>
+                    <p id="place-description"></p>
+                    <div id="images-gallery" class="gallery"></div>
+                    <div id="place-stats" class="stats"></div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <h3>Legend</h3>
+                <div class="legend-item">
+                    <span class="legend-color color-2022"></span>
+                    <span>2022</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-2023"></span>
+                    <span>2023</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-2024"></span>
+                    <span>2024</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-2025"></span>
+                    <span>2025</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color color-2026"></span>
+                    <span>2026</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
