@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metanoia Kleos - Projects Hub</title>
+    <title>Metanoia Kleos - Interactive Journey Map</title>
     <style>
         * {
             margin: 0;
@@ -22,14 +22,14 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 600px;
             width: 100%;
+            text-align: center;
         }
 
         header {
-            text-align: center;
             color: white;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         header h1 {
@@ -39,77 +39,34 @@
         }
 
         header p {
-            font-size: 1.3em;
+            font-size: 1.2em;
             opacity: 0.9;
         }
 
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
+        .main-button {
             background: white;
+            border: none;
             border-radius: 15px;
-            overflow: hidden;
+            padding: 50px 40px;
+            font-size: 1.3em;
+            cursor: pointer;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            color: #667eea;
+            font-weight: bold;
         }
 
-        .project-card:hover {
+        .main-button:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
         }
 
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-        }
-
-        .project-image.map {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .project-image.clock {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .project-content {
-            padding: 25px;
-        }
-
-        .project-content h2 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        .project-content p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .project-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-
-        .project-link:hover {
-            transform: scale(1.05);
+        .emoji {
+            font-size: 4em;
+            margin-bottom: 15px;
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -117,13 +74,9 @@
                 font-size: 2em;
             }
 
-            header p {
-                font-size: 1em;
-            }
-
-            .projects {
-                grid-template-columns: 1fr;
-                gap: 20px;
+            .main-button {
+                padding: 40px 30px;
+                font-size: 1.1em;
             }
         }
     </style>
@@ -132,30 +85,13 @@
     <div class="container">
         <header>
             <h1>🌍 Metanoia Kleos</h1>
-            <p>Interactive Projects & Tools</p>
+            <p>Our Journey Through Impact (2022-2026)</p>
         </header>
 
-        <div class="projects">
-            <!-- Journey Map Project -->
-            <div class="project-card">
-                <div class="project-image map">🗺️</div>
-                <div class="project-content">
-                    <h2>Journey Map</h2>
-                    <p>Explore our interactive journey map showcasing milestones and travels from 2022 to 2026. Click on pinpoints to reveal detailed information about each location and impact.</p>
-                    <a href="index.html" class="project-link">View Journey Map →</a>
-                </div>
-            </div>
-
-            <!-- Digital Clock Project -->
-            <div class="project-card">
-                <div class="project-image clock">🕐</div>
-                <div class="project-content">
-                    <h2>Digital Clock</h2>
-                    <p>Monitor time across multiple time zones simultaneously. Add custom timezones or choose from quick-add buttons to stay connected globally.</p>
-                    <a href="clock.html" class="project-link">View Digital Clock →</a>
-                </div>
-            </div>
-        </div>
+        <a href="index.html" class="main-button">
+            <span class="emoji">🗺️</span>
+            Explore Interactive Journey Map
+        </a>
     </div>
 </body>
 </html>
