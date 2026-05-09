@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock - Multiple Time Zones</title>
+    <link rel="stylesheet" href="clock-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🕐 Digital Clock</h1>
+            <p>Current Time in Multiple Time Zones</p>
+        </header>
+
+        <main>
+            <div class="quick-add">
+                <h3>Quick Add</h3>
+                <div class="buttons">
+                    <button onclick="addClock('America/New_York')">New York</button>
+                    <button onclick="addClock('Europe/London')">London</button>
+                    <button onclick="addClock('Asia/Tokyo')">Tokyo</button>
+                    <button onclick="addClock('Australia/Sydney')">Sydney</button>
+                    <button onclick="addClock('Asia/Dubai')">Dubai</button>
+                    <button onclick="addClock('Asia/Singapore')">Singapore</button>
+                    <button onclick="addClock('Europe/Paris')">Paris</button>
+                    <button onclick="addClock('America/Los_Angeles')">Los Angeles</button>
+                </div>
+            </div>
+
+            <div class="custom-input">
+                <input type="text" id="timezoneInput" placeholder="Enter timezone (e.g., America/Chicago) or city alias (e.g., NY)">
+                <button onclick="addCustomTimezone()">Add Timezone</button>
+            </div>
+
+            <div class="clocks" id="clocksContainer"></div>
+        </main>
+    </div>
+
+    <script src="clock-script.js"></script>
+</body>
+</html>
