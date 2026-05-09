@@ -3,62 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metanoia Kleos - Interactive Journey Map (2022-2026)</title>
+    <title>Metanoia Kleos - Mental Health NGO Journey Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Metanoia Kleos Journey Map</h1>
-            <p>Our travels and milestones from 2022 to 2026</p>
-            <div class="timeline-header">
-                <span class="year">2022</span>
-                <span class="year">2023</span>
-                <span class="year">2024</span>
-                <span class="year">2025</span>
-                <span class="year">2026</span>
-            </div>
-        </header>
-
-        <main>
-            <div id="map"></div>
-            
-            <div id="info-panel" class="info-panel hidden">
-                <button class="close-btn">&times;</button>
-                <div class="info-content">
-                    <h2 id="place-name"></h2>
-                    <p id="place-date" class="date-badge"></p>
-                    <p id="place-description"></p>
-                    <div id="images-gallery" class="gallery"></div>
-                    <div id="place-stats" class="stats"></div>
-                </div>
+    <div class="page-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <img src="https://via.placeholder.com/150x150?text=Metanoia+Kleos" alt="Metanoia Kleos Logo" class="logo">
             </div>
 
-            <div class="legend">
-                <h3>Legend</h3>
-                <div class="legend-item">
-                    <span class="legend-color color-2022"></span>
-                    <span>2022</span>
+            <div class="info-section">
+                <h2>Metanoia Kleos<br>Empowerment<br>Foundation</h2>
+                <p class="tagline">Mental Health for All</p>
+            </div>
+
+            <div class="mission-section">
+                <h3>Our Core Mission</h3>
+                <p>To provide accessible mental health counseling and awareness to children and adults, focusing on holistic well-being through our 5 pillars of support.</p>
+            </div>
+
+            <div class="pillars-section">
+                <h3>5 Pillars of Support</h3>
+                <ul class="pillars-list">
+                    <li>🤝 Good Touch - Bad Touch</li>
+                    <li>🛡️ Bullying Awareness</li>
+                    <li>💭 Depression Support</li>
+                    <li>😰 Anxiety Management</li>
+                    <li>✨ Self-Esteem Building</li>
+                </ul>
+            </div>
+
+            <div class="impact-section">
+                <h3>Impact</h3>
+                <div class="impact-counter">
+                    <div class="counter-display">
+                        <span class="counter-value" id="impactCounter">0</span>
+                        <span class="counter-label">Children & Adults Helped</span>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <span class="legend-color color-2023"></span>
-                    <span>2023</span>
+            </div>
+
+            <div class="website-section">
+                <a href="https://www.metanoiakleos.org" target="_blank" class="website-link">Visit Website →</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="map-header">
+                <h1>Metanoia Kleos Empowerment Foundation</h1>
+                <p>Interactive Mental Health Counseling Journey Map - Bangalore</p>
+                <p class="subtitle">Expanding our reach across schools and orphanages since 2022</p>
+            </header>
+
+            <div class="map-container">
+                <div id="map"></div>
+
+                <div class="timeline-filter">
+                    <h3>Filter by Year</h3>
+                    <div class="year-buttons">
+                        <button class="year-btn" data-year="2022" onclick="filterByYear(2022)">2022</button>
+                        <button class="year-btn" data-year="2023" onclick="filterByYear(2023)">2023</button>
+                        <button class="year-btn" data-year="2024" onclick="filterByYear(2024)">2024</button>
+                        <button class="year-btn" data-year="2025" onclick="filterByYear(2025)">2025</button>
+                        <button class="year-btn" data-year="2026" onclick="filterByYear(2026)">2026</button>
+                        <button class="year-btn active" data-year="all" onclick="filterByYear('all')">All Years</button>
+                    </div>
                 </div>
-                <div class="legend-item">
-                    <span class="legend-color color-2024"></span>
-                    <span>2024</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-color color-2025"></span>
-                    <span>2025</span>
-                </div>
-                <div class="legend-item">
-                    <span class="legend-color color-2026"></span>
-                    <span>2026</span>
+
+                <div class="legend">
+                    <h3>Legend</h3>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #ff6b6b;"></span>
+                        <span>2022</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #4ecdc4;"></span>
+                        <span>2023</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #ffd93d;"></span>
+                        <span>2024</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #6bcf7f;"></span>
+                        <span>2025</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color" style="background: #9b59b6;"></span>
+                        <span>2026</span>
+                    </div>
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Location Popup Modal -->
+    <div id="locationModal" class="location-modal">
+        <div class="location-popup">
+            <button class="close-popup" onclick="closeModal()">&times;</button>
+            <h2 id="modalTitle"></h2>
+            <p id="modalYear" class="year-badge"></p>
+            <p id="modalDescription"></p>
+            <div id="modalGallery" class="modal-gallery"></div>
+            <div id="modalStats" class="modal-stats"></div>
+        </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

@@ -1,24 +1,6 @@
 let map;
-let markers = [];
-let polyline;
-const infoPanel = document.getElementById('info-panel');
-const closeBtn = document.querySelector('.close-btn');
-
-// Initialize map
-function initMap() {
-    map = L.map('map').setView([12.8797, 121.7740], 6);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-        maxZoom: 19,
-        minZoom: 3
-    }).addTo(map);
-
-    addMarkers();
-    drawTimeline();
-}
-
-// Color mapping for years
+let markers = {};
+let currentYear = 'all';
 const yearColors = {
     2022: '#ff6b6b',
     2023: '#4ecdc4',
@@ -27,14 +9,37 @@ const yearColors = {
     2026: '#9b59b6'
 };
 
-// Create custom icons
+const yearImpact = {
+    2022: 50,
+    2023: 1000,
+    2024: 10000,
+    2025: 50000,
+    2026: 80000
+};
+
+// Initialize map
+function initMap() {
+    // Bangalore center coordinates
+    map = L.map('map').setView([12.9716, 77.5946], 11);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+        minZoom: 9
+    }).addTo(map);
+
+    addMarkers();
+    updateImpactCounter('all');
+}
+
+// Create custom icon
 function createIcon(year) {
     return L.divIcon({
         className: 'custom-marker',
         html: `<div style="
             background: ${yearColors[year]};
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             border: 4px solid white;
             display: flex;
@@ -43,107 +48,165 @@ function createIcon(year) {
             color: white;
             font-weight: bold;
             font-size: 14px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
             cursor: pointer;
         ">${year % 100}</div>`,
-        iconSize: [40, 40],
-        iconAnchor: [20, 20]
+        iconSize: [45, 45],
+        iconAnchor: [22, 22]
     });
 }
 
 // Add markers from data
 function addMarkers() {
-    journeyData.forEach((location, index) => {
-        const marker = L.marker([location.lat, location.lng], {
-            icon: createIcon(location.year)
+    schoolsData.forEach((school, index) => {
+        const marker = L.marker([school.lat, school.lng], {
+            icon: createIcon(school.year)
         }).addTo(map);
 
-        marker.data = location;
+        marker.data = school;
         marker.index = index;
 
         marker.on('click', function() {
-            showInfo(location);
-            map.setView([location.lat, location.lng], 8, { animate: true });
+            showLocationModal(school);
         });
 
-        markers.push(marker);
+        markers[index] = marker;
     });
 }
 
-// Draw timeline line connecting all points
-function drawTimeline() {
-    const coordinates = journeyData.map(loc => [loc.lat, loc.lng]);
-    polyline = L.polyline(coordinates, {
-        color: 'rgba(102, 126, 234, 0.5)',
-        weight: 3,
-        opacity: 0.6,
-        dashArray: '10, 5'
-    }).addTo(map);
+// Filter by year
+function filterByYear(year) {
+    currentYear = year;
+    
+    // Update active button
+    document.querySelectorAll('.year-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`[data-year="${year}"]`).classList.add('active');
+
+    // Show/hide markers
+    schoolsData.forEach((school, index) => {
+        if (year === 'all' || school.year === year) {
+            markers[index].addTo(map);
+        } else {
+            map.removeLayer(markers[index]);
+        }
+    });
+
+    updateImpactCounter(year);
 }
 
-// Show info panel
-function showInfo(location) {
-    document.getElementById('place-name').textContent = location.name;
-    document.getElementById('place-date').textContent = `${location.year} • ${location.category}`;
-    document.getElementById('place-description').textContent = location.description;
+// Animate counter
+function animateCounter(finalValue, duration = 1500) {
+    const counterElement = document.getElementById('impactCounter');
+    const startValue = parseInt(counterElement.textContent);
+    const increment = (finalValue - startValue) / (duration / 30);
+    let currentValue = startValue;
+    const startTime = Date.now();
 
-    // Add gallery
-    const gallery = document.getElementById('images-gallery');
+    const interval = setInterval(() => {
+        currentValue += increment;
+        const elapsed = Date.now() - startTime;
+
+        if (elapsed >= duration) {
+            counterElement.textContent = finalValue.toLocaleString();
+            clearInterval(interval);
+        } else {
+            counterElement.textContent = Math.floor(currentValue).toLocaleString();
+        }
+    }, 30);
+}
+
+// Update impact counter
+function updateImpactCounter(year) {
+    let impact = 0;
+    
+    if (year === 'all') {
+        impact = 80000; // Total
+    } else if (yearImpact[year]) {
+        impact = yearImpact[year];
+    }
+
+    animateCounter(impact);
+}
+
+// Show location modal
+function showLocationModal(school) {
+    document.getElementById('modalTitle').textContent = school.name;
+    document.getElementById('modalYear').textContent = `${school.year} • ${school.type}`;
+    document.getElementById('modalDescription').textContent = school.description;
+
+    // Add gallery images
+    const gallery = document.getElementById('modalGallery');
     gallery.innerHTML = '';
-    location.images.forEach(img => {
-        const img_elem = document.createElement('img');
-        img_elem.src = img;
-        img_elem.alt = location.name;
-        img_elem.className = 'gallery-item';
-        img_elem.onclick = () => openModal(img);
-        gallery.appendChild(img_elem);
+    school.images.forEach(img => {
+        const imgElement = document.createElement('img');
+        imgElement.src = img;
+        imgElement.alt = school.name;
+        imgElement.className = 'gallery-image';
+        imgElement.onclick = () => openImageModal(img);
+        gallery.appendChild(imgElement);
     });
 
     // Add stats
-    const stats = document.getElementById('place-stats');
+    const stats = document.getElementById('modalStats');
     stats.innerHTML = `
-        <p><strong>📍 Location:</strong> ${location.location}</p>
-        <p><strong>👥 Participants:</strong> ${location.participants}</p>
-        <p><strong>📊 Impact:</strong> ${location.impact}</p>
+        <p><strong>📍 Location:</strong> ${school.location}</p>
+        <p><strong>👥 Children Counselled:</strong> ${school.childrenCounselled}</p>
+        <p><strong>🎯 Topics Covered:</strong> ${school.topics.join(', ')}</p>
+        <p><strong>📅 Sessions:</strong> ${school.sessions}</p>
     `;
 
-    infoPanel.classList.remove('hidden');
+    document.getElementById('locationModal').classList.add('active');
 }
 
-// Close panel
-closeBtn.addEventListener('click', () => {
-    infoPanel.classList.add('hidden');
-});
+// Close modal
+function closeModal() {
+    document.getElementById('locationModal').classList.remove('active');
+}
 
-// Image modal
-function openModal(imageSrc) {
+// Open full-size image
+function openImageModal(imageSrc) {
     const modal = document.createElement('div');
-    modal.className = 'image-modal active';
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
     modal.innerHTML = `
-        <div class="image-modal-content">
-            <button class="close-modal">&times;</button>
-            <img src="${imageSrc}" alt="Full size">
+        <div style="position: relative; max-width: 90%; max-height: 90%;">
+            <button style="
+                position: absolute;
+                top: -40px;
+                right: 0;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 32px;
+                cursor: pointer;
+            " onclick="this.parentElement.parentElement.remove()">&times;</button>
+            <img src="${imageSrc}" alt="Full size" style="max-width: 100%; max-height: 100%; border-radius: 10px;">
         </div>
     `;
     document.body.appendChild(modal);
-
-    modal.querySelector('.close-modal').addEventListener('click', () => {
-        modal.remove();
-    });
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.remove();
-        }
-    });
+    modal.onclick = (e) => {
+        if (e.target === modal) modal.remove();
+    };
 }
 
-// ESC key to close
+// Close modal on ESC
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        infoPanel.classList.add('hidden');
+        closeModal();
     }
 });
 
-// Initialize on load
+// Initialize on page load
 window.addEventListener('load', initMap);

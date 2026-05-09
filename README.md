@@ -1,98 +1,115 @@
-# Metanoia Kleos - Interactive Journey Map
+# Metanoia Kleos Empowerment Foundation - Mental Health Interactive Journey Map
 
-🌍 An interactive map showcasing the journey and milestones of Metanoia Kleos Empowerment Foundation from 2022 to 2026.
+🧠 An interactive map showcasing the mental health counseling journey of Metanoia Kleos across Bangalore schools and orphanages from 2022 to 2026.
 
-## 🚀 Features
+## ✨ Features
 
-- **Interactive Pinpoints**: Click on any location to see detailed information
-- **Timeline Visualization**: Dashed line connecting all journey locations chronologically
-- **Color-Coded Years**: Easy visual identification from 2022-2026
-- **Photo Galleries**: View images from each location
-- **Detailed Info Panels**: See descriptions, statistics, and impact metrics
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
+✅ **Interactive School Pinpoints** - Click on any school or orphanage to see:
+- Detailed counseling sessions information
+- Number of children counselled
+- Topics covered from the 5 pillars
+- Gallery of session images
+- Location details
+
+✅ **Year-Based Filtering** - Click on years (2022-2026) to:
+- View only locations visited in that year
+- See impact numbers for that year
+- Animated counter showing children helped
+
+✅ **Impact Counter** - Real-time animated counter showing:
+- 2022: 50 children helped
+- 2023: 1,000 children helped
+- 2024: 10,000 children helped
+- 2025: 50,000 children helped
+- 2026: 80,000 children helped
+
+✅ **5 Pillars of Support**:
+- 🤝 Good Touch - Bad Touch
+- 🛡️ Bullying Awareness
+- 💭 Depression Support
+- 😰 Anxiety Management
+- ✨ Self-Esteem Building
+
+✅ **Beautiful UI**:
+- Roboto font throughout
+- Gradient sidebar with organization info
+- Responsive design
+- Smooth animations and transitions
+- Modal popups for location details
 
 ## 📁 Files
 
 - `index.html` - Main interactive map page
-- `styles.css` - Map styling and layout
-- `script.js` - Interactive functionality
-- `data.js` - Journey locations and data
-- `home.html` - Landing page
+- `styles.css` - Modern responsive styling
+- `script.js` - Map interactivity and filtering
+- `data.js` - Schools and counseling session data
 - `README.md` - Documentation
 
 ## 🎯 How to Use
 
-1. Open `index.html` in your browser (or visit the GitHub Pages link)
-2. Explore the map with colored pinpoints
-3. Click any pinpoint to reveal:
-   - Location name and year
-   - Detailed description
-   - Photo gallery
-   - Statistics and impact metrics
-4. Click the images to view them in full size
-5. Use ESC key or close button to dismiss the info panel
+1. **View Schools on Map** - Colored pinpoints represent different years
+2. **Click a Pinpoint** - See detailed information about counseling sessions
+3. **Filter by Year** - Click year buttons to see locations visited that year
+4. **Check Impact** - The counter updates to show how many were helped that year
+5. **View Images** - Gallery images pop up in the modal, click to expand
 
 ## 🎨 Customization
 
-### Edit Journey Data
-Modify `data.js` to add your own locations:
+### Update Logo
+Replace the placeholder logo URL in `index.html`:
+```html
+<img src="YOUR_LOGO_URL" alt="Metanoia Kleos Logo" class="logo">
+```
 
+### Add New Schools
+Add to `data.js`:
 ```javascript
 {
-    name: "Location Name",
-    year: 2024,
-    lat: 14.5995,      // Latitude
-    lng: 120.9842,     // Longitude
-    location: "City, Country",
-    category: "Program",
-    description: "Your description here",
-    participants: "Number of people",
-    impact: "Impact statement",
-    images: [
-        "image-url-1",
-        "image-url-2"
-    ]
+    name: "School Name",
+    year: 2026,
+    lat: 12.9716,
+    lng: 77.5946,
+    location: "Area, Bangalore",
+    type: "School" or "Orphanage",
+    description: "Description of sessions",
+    childrenCounselled: 100,
+    sessions: 5,
+    topics: ['Topic1', 'Topic2'],
+    images: ['image-url-1', 'image-url-2', 'image-url-3']
 }
 ```
 
-### Edit Colors
-Update year colors in `script.js`:
-
-```javascript
-const yearColors = {
-    2022: '#ff6b6b',
-    2023: '#4ecdc4',
-    2024: '#ffd93d',
-    2025: '#6bcf7f',
-    2026: '#9b59b6'
-};
+### Update Website Link
+In `index.html`, change:
+```html
+<a href="https://www.yourwebsite.com" target="_blank" class="website-link">
 ```
 
-## 🌐 Technologies Used
+## 🛠️ Technologies
 
-- **Leaflet.js** - Interactive mapping library
+- **Leaflet.js** - Interactive mapping
 - **OpenStreetMap** - Free map tiles
-- **Vanilla JavaScript** - No dependencies
-- **CSS3** - Modern styling
+- **Roboto Font** - Modern typography
+- **Vanilla JavaScript** - No build required
+- **CSS3** - Beautiful gradients and animations
 
-## 📍 Current Locations
+## 📍 Current Locations Covered
 
-- Manila, Philippines (2022) - Foundation Established
-- Cebu, Philippines (2022) - First Community Program
-- Davao, Philippines (2023) - Regional Expansion
-- Iloilo, Philippines (2023) - Skills Training Initiative
-- Manila, Philippines (2024) - National Conference
-- Batangas, Philippines (2024) - Women Empowerment Project
-- Butuan, Philippines (2024) - Environmental Initiative
-- Surigao, Philippines (2025) - Healthcare Access Program
-- General Santos, Philippines (2025) - Education Scholarship Program
-- Quezon City, Philippines (2026) - Growth & Innovation
-- Tacloban, Philippines (2026) - Digital Transformation Hub
+- St. Mary's School (Whitefield)
+- Bangalore Orphanage Center (Indiranagar)
+- Delhi Public School (Bangalore East)
+- Vibrant Learning Center (Sarjapur Road)
+- Bangalore International School (Koramangala)
+- Hope Children's Home (Electronic City)
+- Cambridge School Bangalore (Yeshwantpur)
+- Little Stars Orphanage (Marathahalli)
+- Spring Dale Global School (CV Raman Nagar)
+- Joyful Kids Center (Ramamurthy Nagar)
 
-## 📝 License
+## 💝 Our Mission
 
-Public - Free to use and modify
+To provide accessible mental health counseling and awareness to children and adults, focusing on holistic well-being through our 5 pillars of support.
 
 ## 📧 Contact
 
-Metanoia Kleos Empowerment Foundation
+Visit: www.metanoiakleos.org
